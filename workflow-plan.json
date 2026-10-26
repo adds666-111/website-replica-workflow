@@ -1,20 +1,92 @@
 {
-  "status": "reviewable_design_not_deployed",
+  "status": "intake_ready_runner_and_ai_not_connected",
   "purpose": "Submit a website URL, implement a replica, independently review visual and functional parity, return a reviewable change request",
-  "entrypoint": "GitHub Issue Form or web form; user preference pending",
+  "entrypoint": "GitHub Issue Form",
   "orchestrator_candidate": "https://github.com/github/gh-aw",
-  "requested_model": {"desktop_model": "gpt-6.1-sol", "reasoning": "low", "runner_engine_model_mapping": "must verify with selected engine; do not assume desktop model alias is an API identifier"},
+  "requested_model": {
+    "desktop_model": "gpt-6.1-sol",
+    "reasoning": "low",
+    "runner_engine_model_mapping": "must verify with selected engine; do not assume desktop model alias is an API identifier"
+  },
   "stages": [
-    {"id":"intake", "output":"job.json", "checks":["source URL and project destination resolved", "brand, repository and browser profile bound to this job"]},
-    {"id":"source_evidence", "output":"route-state-inventory.json + paired capture plan", "checks":["current accessible source routes", "desktop 1440x1000 and mobile 390x844", "menus, modals, filters, infinite loading, product variants, gallery, cart and footer"]},
-    {"id":"implement", "output":"isolated branch + preview", "checks":["real native commerce preserved", "no fabricated reviews or account history"]},
-    {"id":"capture", "output":"source/target section images + DOM geometry + browser errors", "checks":["same environment and state", "fonts and images ready", "lazy content scrolled into viewport", "full-page screenshot is never sole evidence"]},
-    {"id":"independent_review", "output":"findings.json + annotated evidence references", "checks":["separate reviewer session", "visual differences and functional failures both reviewed", "unverified pages remain incomplete"]},
-    {"id":"repair_loop", "output":"new preview + new evidence", "max_iterations":3, "on_unresolved":"mark needs-human with exact remaining findings; no automatic acceptance"},
-    {"id":"pull_request", "output":"draft PR with preview link, changed files, source/target screenshots, findings and known gaps"},
-    {"id":"human_review", "output":"approve or request changes", "on_changes":"return to implement", "on_approval":"eligible for configured deployment"}
+    {
+      "id": "intake",
+      "output": "job.json",
+      "checks": [
+        "source URL and project destination resolved",
+        "brand, repository and browser profile bound to this job"
+      ]
+    },
+    {
+      "id": "source_evidence",
+      "output": "route-state-inventory.json + paired capture plan",
+      "checks": [
+        "current accessible source routes",
+        "desktop 1440x1000 and mobile 390x844",
+        "menus, modals, filters, infinite loading, product variants, gallery, cart and footer"
+      ]
+    },
+    {
+      "id": "implement",
+      "output": "isolated branch + preview",
+      "checks": [
+        "real native commerce preserved",
+        "no fabricated reviews or account history"
+      ]
+    },
+    {
+      "id": "capture",
+      "output": "source/target section images + DOM geometry + browser errors",
+      "checks": [
+        "same environment and state",
+        "fonts and images ready",
+        "lazy content scrolled into viewport",
+        "full-page screenshot is never sole evidence"
+      ]
+    },
+    {
+      "id": "independent_review",
+      "output": "findings.json + annotated evidence references",
+      "checks": [
+        "separate reviewer session",
+        "visual differences and functional failures both reviewed",
+        "unverified pages remain incomplete"
+      ]
+    },
+    {
+      "id": "repair_loop",
+      "output": "new preview + new evidence",
+      "max_iterations": 3,
+      "on_unresolved": "mark needs-human with exact remaining findings; no automatic acceptance"
+    },
+    {
+      "id": "pull_request",
+      "output": "draft PR with preview link, changed files, source/target screenshots, findings and known gaps"
+    },
+    {
+      "id": "human_review",
+      "output": "approve or request changes",
+      "on_changes": "return to implement",
+      "on_approval": "eligible for configured deployment"
+    }
   ],
-  "execution": {"build":"GitHub-hosted runner where compatible", "local_browser":"dedicated self-hosted Windows worker when AdsPower/REA/local resources are needed", "concurrency":"one mutating job per repository checkout and browser profile", "rate_limit":"stop repeating requests after 429 and report the blocked evidence"},
-  "completion": {"functional_pass_alone":false, "known_visual_findings_allowed":false, "unverified_routes_allowed":false, "automatic_baseline_replacement_allowed":false},
-  "not_yet_configured": ["GitHub repository", "entrypoint preference", "runner registration", "AI engine credentials and supported model mapping", "deployment destination and approval environment"]
+  "execution": {
+    "build": "GitHub-hosted runner where compatible",
+    "local_browser": "dedicated self-hosted Windows worker when AdsPower/REA/local resources are needed",
+    "concurrency": "one job at a time for initial server; remaining tasks queue",
+    "rate_limit": "stop repeating requests after 429 and report the blocked evidence"
+  },
+  "completion": {
+    "functional_pass_alone": false,
+    "known_visual_findings_allowed": false,
+    "unverified_routes_allowed": false,
+    "automatic_baseline_replacement_allowed": false
+  },
+  "not_yet_configured": [
+    "server runner registration",
+    "AI engine authentication and supported model mapping",
+    "automated evidence capture and independent review jobs",
+    "deployment destination and approval environment"
+  ],
+  "repository": "https://github.com/adds666-111/website-replica-workflow"
 }
