@@ -1,0 +1,43 @@
+name: Website parity task
+description: Submit a source website for implementation and independent visual review.
+title: "[Website] "
+body:
+  - type: input
+    id: source_url
+    attributes:
+      label: Source website URL
+      placeholder: https://example.com/
+    validations:
+      required: true
+  - type: dropdown
+    id: project
+    attributes:
+      label: Destination project
+      options:
+        - New website
+        - Moon Juice
+        - Naked Nutrition
+        - Humann
+        - Amazing Grass
+    validations:
+      required: true
+  - type: input
+    id: target_url
+    attributes:
+      label: Existing destination URL (optional for a new website)
+      placeholder: https://preview.example.com/
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and special requirements
+      value: |
+        Match all currently accessible source pages from header to footer.
+        Check desktop 1440x1000 and mobile 390x844.
+        Include menus, search, filters, product gallery, cart and footer states.
+        Return a preview, paired screenshots and an independently reviewed PR.
+        Unchecked or unresolved differences must remain marked incomplete.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "Do not include passwords, browser credentials, payment data or API keys in this issue."
